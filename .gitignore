@@ -1,0 +1,22 @@
+# .gitignore
+
+# Python
+*.pyc
+__pycache__/
+instance/
+.env
+
+# Environment
+venv/
+env/
+
+# Database
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
