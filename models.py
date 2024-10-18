@@ -1,26 +1,32 @@
 from database import db
 from utils.helpers import format_datetime
 
-
 class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    # id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.String(200))
-    quantity = db.Column(db.Integer, default=0)
-    price = db.Column(db.Float, nullable=False)
-    created_at = db.Column(db.DateTime, default=db.func.now())
-    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
+    sku = db.Column(db.String(50), nullable=False, primary_key=True, unique=True)  # Add SKU field
+    condition = db.Column(db.String(20), nullable=False, default='New')  # Add condition field
+    location = db.Column(db.String(100), nullable=False)  # Add location field
+    available = db.Column(db.Integer, default=0)  # Add available stock field
+    reserved = db.Column(db.Integer, default=0)  # Add reserved stock field
+    onHand = db.Column(db.Integer, default=0)  # Add on-hand stock field
+    price = db.Column(db.Float, nullable=False)  # Add price field
 
     def to_dict(self):
         return {
-            'id': self.id,
+            # 'id': self.id,
             'name': self.name,
-            'description': self.description,
-            'quantity': self.quantity,
+            'sku': self.sku,
+            'condition': self.condition,
+            'location': self.location,
+            'available': self.available,
+            'reserved': self.reserved,
+            'onHand': self.onHand,
             'price': self.price,
-            'created_at': format_datetime(self.created_at),
-            'updated_at': format_datetime(self.updated_at),
         }
+
+
+        
 
 class Invoice(db.Model):
     id = db.Column(db.Integer, primary_key=True)

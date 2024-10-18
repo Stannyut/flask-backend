@@ -1,8 +1,8 @@
-"""Initial migration.
+"""Your migration message here
 
-Revision ID: 10a9f2f8e104
+Revision ID: 708d842167e9
 Revises: 
-Create Date: 2024-10-16 15:05:17.150174
+Create Date: 2024-10-17 16:12:15.591925
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '10a9f2f8e104'
+revision = '708d842167e9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,12 +29,15 @@ def upgrade():
     op.create_table('product',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('description', sa.String(length=200), nullable=True),
-    sa.Column('quantity', sa.Integer(), nullable=True),
+    sa.Column('sku', sa.String(length=50), nullable=False),
+    sa.Column('condition', sa.String(length=20), nullable=False),
+    sa.Column('location', sa.String(length=100), nullable=False),
+    sa.Column('available', sa.Integer(), nullable=True),
+    sa.Column('reserved', sa.Integer(), nullable=True),
+    sa.Column('onHand', sa.Integer(), nullable=True),
     sa.Column('price', sa.Float(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('sku')
     )
     op.create_table('invoice',
     sa.Column('id', sa.Integer(), nullable=False),

@@ -18,6 +18,9 @@ app.config.from_object('config.Config')
 db.init_app(app)
 migrate = Migrate(app, db)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventory.db'  # Ensure the database URI is set
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional, but recommended
+
 # Register Blueprints
 app.register_blueprint(product_bp, url_prefix = '/api/products')
 app.register_blueprint(finance_bp, url_prefix ='/api/finances')
@@ -29,4 +32,4 @@ def index():
     return jsonify(message="Welcome to the Inventory Management API! Refer to /api for more information.")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5555)
+    app.run(debug=True, port=5000)
